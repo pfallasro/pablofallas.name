@@ -1,0 +1,43 @@
+.App {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.header-section {
+  background: #282c34;
+  color: #fff;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.header-section h1 {
+  margin: 0;
+  font-size: 3rem;
+}
+
+.header-section h3 {
+  margin-top: 0.5rem;
+  font-weight: 400;
+}
+
+.about-section, .skills-section, .projects-section {
+  padding: 2rem;
+}
+
+.projects-section .project {
+  margin-bottom: 1.5rem;
+}
+
+.footer-section {
+  text-align: center;
+  background: #f3f3f3;
+  padding: 1rem 0;
+  margin-top: 2rem;
+}
+
+.footer-section a {
+  color: #0066cc;
+  text-decoration: none;
+}
