@@ -1,4 +1,17 @@
 #######################################################
+# Terraform Remote State Configuration
+#######################################################
+terraform {
+  backend "s3" {
+    bucket         = "falafel-terraform-state-bucket"
+    key            = "terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "falafel-terraform-lock-table"
+    encrypt        = true
+  }
+}
+
+#######################################################
 # Terraform & Provider Configuration
 #######################################################
 terraform {
