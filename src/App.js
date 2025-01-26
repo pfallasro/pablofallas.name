@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="App">
       <header className="header-section">
-        <h1>John Doe</h1>
+        <h1>Pablo Fallas</h1>
         <h3>DevOps Engineer & Software Developer</h3>
       </header>
 
@@ -48,7 +48,7 @@ function App() {
       </section>
 
       <footer className="footer-section">
-        <p>© 2025 John Doe | <a href="mailto:john@example.com">john@example.com</a></p>
+        <p>© 2025 Pablo Fallas | <a href="mailto:pfallasro@gmail.com">pfallasro@gmail.com</a></p>
       </footer>
     </div>
   );
