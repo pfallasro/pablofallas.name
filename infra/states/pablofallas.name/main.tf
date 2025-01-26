@@ -11,12 +11,15 @@ data "aws_route53_zone" "selected" {
 # S3 BUCKET (Private, for CloudFront origin)
 ##############################################################################
 resource "aws_s3_bucket" "bucket" {
-  bucket = "my-unique-portfolio-bucket-12345" # globally unique
+  bucket = var.service_name
 }
 
-resource "aws_s3_bucket_acl" "bucket_acl" {
-  bucket = aws_s3_bucket.bucket.id
-  acl    = "private"
+resource "aws_s3_bucket_public_access_block" "block_public_access" {
+  bucket                  = aws_s3_bucket.bucket.id
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 }
 
 ##############################################################################
@@ -56,7 +59,7 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
 }
 
 ##############################################################################
-# ACM CERTIFICATE (in us-east-1 for CloudFront) - DNS validation
+# ACM CERTIFICATE - DNS validation
 ##############################################################################
 resource "aws_acm_certificate" "cert" {
   domain_name       = var.domain_name
@@ -70,31 +73,29 @@ resource "aws_acm_certificate" "cert" {
 # DNS records for validating the certificate
 resource "aws_route53_record" "cert_validation_main" {
   zone_id = data.aws_route53_zone.selected.zone_id
-  name    = aws_acm_certificate.cert.domain_validation_options[0].resource_record_name
-  type    = aws_acm_certificate.cert.domain_validation_options[0].resource_record_type
-  records = [aws_acm_certificate.cert.domain_validation_options[0].resource_record_value]
+  name    = tolist(aws_acm_certificate.cert.domain_validation_options)[0].resource_record_name
+  type    = tolist(aws_acm_certificate.cert.domain_validation_options)[0].resource_record_type
+  records = [tolist(aws_acm_certificate.cert.domain_validation_options)[0].resource_record_value]
   ttl     = 300
 }
 
 # If there's a SAN (Subject Alternative Name) for the subdomain
 resource "aws_route53_record" "cert_validation_san" {
-  count   = length(aws_acm_certificate.cert.domain_validation_options) > 1 ? 1 : 0
-  zone_id = data.aws_route53_zone.selected.zone_id
-  name    = element(aws_acm_certificate.cert.domain_validation_options, 1).resource_record_name
-  type    = element(aws_acm_certificate.cert.domain_validation_options, 1).resource_record_type
-  records = [element(aws_acm_certificate.cert.domain_validation_options, 1).resource_record_value]
-  ttl     = 300
+  for_each = { for idx, val in tolist(aws_acm_certificate.cert.domain_validation_options) : idx => val if idx > 0 }
+  zone_id  = data.aws_route53_zone.selected.zone_id
+  name     = each.value.resource_record_name
+  type     = each.value.resource_record_type
+  records  = [each.value.resource_record_value]
+  ttl      = 300
 }
 
 # Validate the certificate once DNS records are created
 resource "aws_acm_certificate_validation" "cert_validation" {
-  provider        = aws.us-east-1
   certificate_arn = aws_acm_certificate.cert.arn
-  validation_record_fqdns = [
-    aws_route53_record.cert_validation_main.fqdn,
-    # If there's a SAN, include its validation record
+  validation_record_fqdns = concat(
+    [aws_route53_record.cert_validation_main.fqdn],
     [for r in aws_route53_record.cert_validation_san : r.fqdn]
-  ]
+  )
 }
 
 ##############################################################################
@@ -128,22 +129,22 @@ resource "aws_cloudfront_distribution" "site" {
   origin {
     domain_name = aws_s3_bucket.bucket.bucket_regional_domain_name
     origin_id   = "S3-PortfolioOrigin"
-
-    # Attach the Origin Access Control
     origin_access_control_id = aws_cloudfront_origin_access_control.oac.id
   }
 
   default_cache_behavior {
-    target_origin_id       = "S3-PortfolioOrigin"
+    target_origin_id = "S3-PortfolioOrigin"
     viewer_protocol_policy = "redirect-to-https"
-    allowed_methods        = ["GET", "HEAD", "OPTIONS"]
-    cached_methods         = ["GET", "HEAD"]
+    allowed_methods  = ["GET", "HEAD", "OPTIONS"]
+    cached_methods   = ["GET", "HEAD"]
+    compress         = true
 
-    # Some recommended defaults
-    compress = true
-
-    # If you have client-side routing (React SPA), you may need
-    # custom error configs below for rewriting 404s to index.html
+    forwarded_values {
+      query_string = false
+      cookies {
+        forward = "none"
+      }
+    }
   }
 
   # Optional custom error response to handle React router fallback:
