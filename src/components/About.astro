@@ -1,0 +1,26 @@
+---
+const paragraphs = [
+  "I'm a passionate Software Engineer and DevOps practitioner with a strong track record of delivering scalable, reliable solutions across diverse software development projects. I thrive on learning new technologies and finding elegant, efficient ways to solve complex problems, always to make life easier for teams and users alike.",
+  "I believe in a people-first approach, where collaboration and shared purpose drive better processes and smarter tools. Currently leading the Platform & Infrastructure team at Zenjob, I focus on operational excellence and improving the developer experience across the organization.",
+  "My expertise spans cloud infrastructure, CI/CD automation, container orchestration, and observability. I design, build, and maintain infrastructure, tooling, and processes that enable engineering teams to deliver software reliably, securely, and efficiently.",
+];
+---
+
+<section id="about" class="max-w-3xl mx-auto px-6 py-24">
+  <h2
+    class="text-4xl md:text-5xl font-display font-bold text-center gradient-text mb-12"
+  >
+    About Me
+  </h2>
+  <div
+    class="rounded-2xl p-8 md:p-10 card-surface shadow-xl border border-white/5"
+  >
+    {
+      paragraphs.map((p) => (
+        <p class="text-lg text-ink-400 leading-relaxed [&:not(:last-child)]:mb-6">
+          {p}
+        </p>
+      ))
+    }
+  </div>
+</section>

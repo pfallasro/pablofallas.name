@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pablofallas.name/sitemap.xml
+Sitemap: https://pablofallas.name/sitemap-index.xml

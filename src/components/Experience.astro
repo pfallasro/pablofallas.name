@@ -1,0 +1,81 @@
+---
+const jobs = [
+  {
+    company: "Zenjob",
+    role: "Infrastructure Engineering Manager",
+    period: "Feb 2025 – Present",
+    location: "Germany",
+    description:
+      "Leading the Platform & Infrastructure team, focused on operational excellence and improving the developer experience across the company. We design, build, and maintain infrastructure, tooling, and processes that enable engineering teams to deliver software reliably, securely, and efficiently.",
+  },
+  {
+    company: "Zenjob",
+    role: "Senior DevOps Engineer",
+    period: "Jul 2022 – Feb 2025",
+    location: "Germany",
+    description:
+      "Designed, implemented, and maintained infrastructure, CI/CD pipelines, and developer tooling to support operational excellence and streamline the development lifecycle. Collaborated with engineers across the organization to improve reliability, scalability, and security.",
+  },
+  {
+    company: "TradeStation",
+    role: "Site Reliability Engineer",
+    period: "Oct 2021 – Jun 2022",
+    location: "Costa Rica",
+    description:
+      "Managed and configured AWS environments to ensure scalability, efficiency, and security. Maintained Kubernetes clusters, implemented observability with Datadog and Grafana, and developed Infrastructure as Code with Terraform and Ansible.",
+  },
+  {
+    company: "SecureLink",
+    role: "DevOps Engineer",
+    period: "Sep 2019 – Sep 2021",
+    location: "Costa Rica",
+    description:
+      "Maintained internal development and testing environments. Developed RPM packages for automation, used Ansible and Ansible Tower for configuration management, and managed GitLab pipelines and Docker images for CI/CD workflows.",
+  },
+  {
+    company: "Equifax",
+    role: "DevOps Engineer",
+    period: "Jul 2018 – Sep 2019",
+    location: "Costa Rica",
+    description:
+      "Managed automated deployments and maintenance of internal applications including Bamboo, Bitbucket, Confluence, and Jira. Assisted teams in CI/CD configuration and best practices while contributing to company-wide security standards.",
+  },
+  {
+    company: "Equifax",
+    role: "Systems Engineer",
+    period: "May 2016 – Jun 2018",
+    location: "Costa Rica",
+    description:
+      "Designed and implemented technical requirements to integrate external-facing applications with SecureAuth IdP using SAML, OAuth/OpenID Connect, and WS-FED. Maintained a mission-critical, multi-region authentication platform across five regions.",
+  },
+];
+---
+
+<section id="experience" class="max-w-7xl mx-auto px-6 py-24">
+  <h2
+    class="text-4xl md:text-5xl font-display font-bold text-center gradient-text mb-12"
+  >
+    Professional Experience
+  </h2>
+  <div class="grid gap-6">
+    {
+      jobs.map((job) => (
+        <article class="rounded-2xl p-8 card-surface border border-white/5 shadow-lg">
+          <header class="flex flex-wrap justify-between gap-4 mb-4">
+            <div>
+              <h3 class="text-xl font-semibold text-brand-500 mb-1">
+                {job.role}
+              </h3>
+              <p class="text-lg text-ink-50">{job.company}</p>
+            </div>
+            <div class="text-sm text-ink-400 sm:text-right">
+              <p>{job.period}</p>
+              <p>{job.location}</p>
+            </div>
+          </header>
+          <p class="text-ink-400 leading-relaxed">{job.description}</p>
+        </article>
+      ))
+    }
+  </div>
+</section>
