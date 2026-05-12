@@ -141,11 +141,11 @@ resource "aws_cloudfront_response_headers_policy" "security_headers" {
     content_security_policy {
       content_security_policy = join("; ", [
         "default-src 'self'",
-        "script-src 'self' 'unsafe-inline'",
+        "script-src 'self' 'unsafe-inline' https://cloud.umami.is",
         "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
         "img-src 'self' data: https:",
         "font-src 'self' data: https://fonts.gstatic.com",
-        "connect-src 'self'",
+        "connect-src 'self' https://cloud.umami.is",
         "manifest-src 'self'",
         "worker-src 'self'",
         "frame-ancestors 'none'",
