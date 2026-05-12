@@ -1,89 +1,150 @@
 ---
 import { Icon } from "astro-icon/components";
+
+const meta = [
+  { k: "Role",       v: "Infrastructure Engineering Manager", small: "@ Zenjob" },
+  { k: "Discipline", v: "DevOps · Site Reliability · Platform · FinOps" },
+  { k: "Based",      v: "Berlin, Germany", small: "(originally Costa Rica 🇨🇷)" },
+  { k: "Focus",      v: "Reliable infra, sharper DX, real cost discipline, calm operations." },
+];
 ---
 
-<section
-  id="hero"
-  class="relative min-h-screen flex items-center justify-center overflow-hidden"
->
-  <div
-    aria-hidden="true"
-    class="absolute top-[10%] -left-[10%] w-[500px] h-[500px] rounded-full blur-[60px]"
-    style="background: radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%);"
-  >
-  </div>
-  <div
-    aria-hidden="true"
-    class="absolute bottom-[10%] -right-[10%] w-[500px] h-[500px] rounded-full blur-[60px]"
-    style="background: radial-gradient(circle, rgba(6,182,212,0.15) 0%, transparent 70%);"
-  >
-  </div>
+<section id="hero" class="relative overflow-hidden pt-40 pb-24 md:pt-48 md:pb-28">
+  <div class="max-w-[1240px] mx-auto px-6 md:px-8">
+    <div class="grid gap-10 md:gap-16 md:grid-cols-[1.2fr_0.8fr] items-end">
+      <div>
+        <div
+          class="flex items-center gap-3.5 mb-7 text-[12px] tracking-[0.14em] uppercase"
+          style="font-family: var(--font-mono); color: var(--color-ink-soft);"
+        >
+          <span class="pulse-dot"></span>
+          <span>Available · Berlin / Remote · DE · EN · ES</span>
+        </div>
 
-  <div class="relative z-10 max-w-3xl mx-auto px-6 pt-20 text-center animate-fade-in-slow">
-    <h1
-      class="font-display font-bold tracking-tight text-5xl md:text-7xl gradient-text mb-4 leading-tight"
-    >
-      Pablo Fallas Rodríguez
-    </h1>
-    <p class="text-2xl md:text-3xl text-ink-50 font-light mb-2">
-      Infrastructure Engineering Manager
-    </p>
-    <p class="text-lg md:text-xl text-ink-400 mb-2">
-      DevOps / Site Reliability Engineer
-    </p>
-    <p class="text-base text-ink-400 mb-10">Berlin, Germany</p>
+        <h1
+          class="serif-display text-[clamp(64px,10vw,144px)]"
+          style="color: var(--color-ink);"
+        >
+          Pablo<br />
+          <em style="font-style: italic; color: var(--color-red);">Fallas</em><br />
+          Rodríguez.
+        </h1>
 
-    <div class="flex flex-wrap gap-4 justify-center mb-10">
-      <a
-        href="#contact"
-        class="px-7 py-3 rounded-full font-semibold text-ink-900 bg-brand-gradient shadow-[0_8px_32px_rgba(16,185,129,0.3)] hover:scale-105 transition-transform"
-      >
-        Get in Touch
-      </a>
-      <a
-        href="/CV_Pablo_Fallas.pdf"
-        download
-        class="inline-flex items-center gap-2 px-7 py-3 rounded-full font-semibold border border-brand-500 text-brand-400 hover:bg-brand-500/10 transition-colors"
-      >
-        <Icon name="mdi:download" class="w-5 h-5" />
-        Download CV
-      </a>
+        <p
+          class="mt-6 max-w-[560px] italic text-[clamp(22px,2.4vw,30px)] leading-snug"
+          style="font-family: var(--font-serif); color: var(--color-ink-soft);"
+        >
+          Infrastructure Engineering Manager. Building platforms<br />
+          where good engineers do their best work.
+        </p>
+
+        <div class="mt-14 flex flex-wrap gap-3.5 items-center">
+          <a
+            href="#contact"
+            class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full text-sm font-semibold transition-colors"
+            style="background: var(--color-ink); color: var(--color-paper);"
+            onmouseover="this.style.background='var(--color-red)'"
+            onmouseout="this.style.background='var(--color-ink)'"
+          >
+            Start a conversation
+            <span aria-hidden="true">→</span>
+          </a>
+          <a
+            href="/CV_Pablo_Fallas.pdf"
+            class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full text-sm font-semibold border transition-colors"
+            style="border-color: var(--color-ink); color: var(--color-ink);"
+            onmouseover="this.style.background='var(--color-ink)'; this.style.color='var(--color-paper)'"
+            onmouseout="this.style.background='transparent'; this.style.color='var(--color-ink)'"
+          >
+            Download CV
+          </a>
+
+          <div
+            class="flex gap-1.5 ml-3 pl-4 border-l"
+            style="border-color: var(--color-rule);"
+          >
+            <a
+              href="https://github.com/pfallasro"
+              target="_blank"
+              rel="noopener"
+              aria-label="GitHub"
+              class="w-10 h-10 grid place-items-center rounded-full transition-colors"
+              style="color: var(--color-ink-soft);"
+              onmouseover="this.style.color='var(--color-red)'; this.style.background='color-mix(in oklch, var(--color-red) 8%, transparent)'"
+              onmouseout="this.style.color='var(--color-ink-soft)'; this.style.background='transparent'"
+            >
+              <Icon name="mdi:github" class="w-[18px] h-[18px]" />
+            </a>
+            <a
+              href="https://linkedin.com/in/pfallasro"
+              target="_blank"
+              rel="noopener"
+              aria-label="LinkedIn"
+              class="w-10 h-10 grid place-items-center rounded-full transition-colors"
+              style="color: var(--color-ink-soft);"
+              onmouseover="this.style.color='var(--color-red)'; this.style.background='color-mix(in oklch, var(--color-red) 8%, transparent)'"
+              onmouseout="this.style.color='var(--color-ink-soft)'; this.style.background='transparent'"
+            >
+              <Icon name="mdi:linkedin" class="w-[18px] h-[18px]" />
+            </a>
+            <a
+              href="mailto:pfallasro@gmail.com"
+              aria-label="Email"
+              class="w-10 h-10 grid place-items-center rounded-full transition-colors"
+              style="color: var(--color-ink-soft);"
+              onmouseover="this.style.color='var(--color-red)'; this.style.background='color-mix(in oklch, var(--color-red) 8%, transparent)'"
+              onmouseout="this.style.color='var(--color-ink-soft)'; this.style.background='transparent'"
+            >
+              <Icon name="mdi:email" class="w-[18px] h-[18px]" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-7 pb-2">
+        {
+          meta.map((row, i) => (
+            <div
+              class="flex gap-4 pb-4.5"
+              style={
+                i === meta.length - 1
+                  ? ""
+                  : "border-bottom: 1px solid var(--color-rule); padding-bottom: 18px;"
+              }
+            >
+              <div
+                class="flex-none w-20 pt-1 text-[11px] uppercase tracking-[0.12em]"
+                style="font-family: var(--font-mono); color: var(--color-ink-faint);"
+              >
+                {row.k}
+              </div>
+              <div class="text-[15px] leading-[1.5]" style="color: var(--color-ink);">
+                {row.v}
+                {row.small && (
+                  <span style="color: var(--color-ink-soft); font-size: 13px;"> {row.small}</span>
+                )}
+              </div>
+            </div>
+          ))
+        }
+      </div>
     </div>
-
-    <div class="flex gap-3 justify-center">
-      <a
-        href="https://github.com/pfallasro"
-        target="_blank"
-        rel="noopener"
-        aria-label="GitHub"
-        class="p-2.5 rounded-full text-brand-400 hover:bg-brand-500/10 transition-colors"
-      >
-        <Icon name="mdi:github" class="w-6 h-6" />
-      </a>
-      <a
-        href="https://linkedin.com/in/pfallasro"
-        target="_blank"
-        rel="noopener"
-        aria-label="LinkedIn"
-        class="p-2.5 rounded-full text-brand-400 hover:bg-brand-500/10 transition-colors"
-      >
-        <Icon name="mdi:linkedin" class="w-6 h-6" />
-      </a>
-      <a
-        href="mailto:pfallasro@gmail.com"
-        aria-label="Email"
-        class="p-2.5 rounded-full text-brand-400 hover:bg-brand-500/10 transition-colors"
-      >
-        <Icon name="mdi:email" class="w-6 h-6" />
-      </a>
-    </div>
   </div>
 
-  <a
-    href="#about"
-    aria-label="Scroll to About"
-    class="absolute bottom-10 left-1/2 -translate-x-1/2 p-2 text-brand-400 animate-bounce"
+  <div
+    class="hidden lg:grid place-items-center absolute right-8 top-[140px] w-[130px] h-[130px] rounded-full border border-dashed text-center text-[10px] uppercase tracking-[0.18em] opacity-55 pointer-events-none"
+    style="border-color: var(--color-ink-faint); color: var(--color-ink-faint); font-family: var(--font-mono);"
+    aria-hidden="true"
   >
-    <Icon name="mdi:chevron-down" class="w-7 h-7" />
-  </a>
+    <div>
+      Engineering
+      <div
+        class="my-1 not-italic"
+        style="font-family: var(--font-serif); font-style: italic; font-size: 22px; color: var(--color-red); letter-spacing: 0; text-transform: none;"
+      >
+        Since
+      </div>
+      2010
+    </div>
+  </div>
 </section>

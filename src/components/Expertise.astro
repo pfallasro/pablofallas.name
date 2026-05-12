@@ -1,64 +1,121 @@
 ---
-import { Icon } from "astro-icon/components";
-
 const skills = [
   {
-    title: "Cloud & Infrastructure",
+    idx: "001 / Cloud",
+    title: "Cloud &",
+    titleEm: "infrastructure",
+    stack: ["AWS", "Terraform", "Kubernetes"],
     description:
-      "AWS (Developer Associate), Terraform, Kubernetes - Building scalable cloud infrastructure",
-    icon: "mdi:cloud",
+      "Scalable cloud infrastructure built with infrastructure-as-code from day one. AWS Certified Developer Associate.",
   },
   {
-    title: "Automation & CI/CD",
+    idx: "002 / FinOps",
+    title: "Cost &",
+    titleEm: "FinOps",
+    stack: ["Cost Explorer", "Tagging", "Rightsizing", "Savings Plans"],
     description:
-      "GitLab CI/CD, Ansible / Ansible Tower, Docker, Bash - Streamlining deployment workflows",
-    icon: "mdi:chart-line-variant",
+      "Cloud spend treated as an engineering signal. Attribution, rightsizing and continuous reviews that let teams ship fast without quietly burning the budget.",
   },
   {
-    title: "Programming & Scripting",
+    idx: "003 / CI/CD",
+    title: "Automation &",
+    titleEm: "delivery",
+    stack: ["GitLab CI", "Ansible", "Docker", "Bash"],
     description:
-      "Python, Golang - Building tools and automating complex processes",
-    icon: "mdi:code-tags",
+      "Pipelines and developer tooling that turn \"deploys\" into the dullest moment of the day. Boring is the goal.",
   },
   {
-    title: "Monitoring & Observability",
+    idx: "004 / Code",
+    title: "Programming &",
+    titleEm: "scripting",
+    stack: ["Python", "Go", "Bash"],
     description:
-      "Grafana, Prometheus, Loki, Datadog, Alertmanager - Ensuring system health and performance",
-    icon: "mdi:speedometer",
+      "Internal tools, automations and glue code that remove toil from teams. Written to be read, not admired.",
   },
   {
-    title: "Container Orchestration",
+    idx: "005 / Observability",
+    title: "Monitoring &",
+    titleEm: "observability",
+    stack: ["Grafana", "Prometheus", "Loki", "Datadog"],
     description:
-      "Kubernetes, Docker - Managing containerized applications at scale",
-    icon: "mdi:graph-outline",
+      "Metrics, logs and alerts wired so the right person hears about the right thing at the right time, and almost never out of hours.",
   },
   {
-    title: "Systems Administration",
+    idx: "006 / Containers",
+    title: "Container",
+    titleEm: "orchestration",
+    stack: ["Kubernetes", "Docker", "Helm"],
     description:
-      "Linux Administration, Windows Administration - Managing diverse system environments",
-    icon: "mdi:shield-check",
+      "Running containerized workloads at scale. Clusters that survive Friday afternoons, holidays, and the occasional intern.",
   },
 ];
 ---
 
-<section id="expertise" class="py-24" style="background: rgba(16,185,129,0.03);">
-  <div class="max-w-7xl mx-auto px-6">
-    <h2
-      class="text-4xl md:text-5xl font-display font-bold text-center gradient-text mb-12"
+<section
+  id="expertise"
+  class="py-28 md:py-32 border-y"
+  style="background: var(--color-paper-deep); border-color: var(--color-rule);"
+>
+  <div class="max-w-[1240px] mx-auto px-6 md:px-8">
+    <header
+      class="grid md:grid-cols-[1fr_2fr] gap-10 md:gap-16 items-baseline mb-14 pb-6 border-b"
+      style="border-color: var(--color-rule);"
     >
-      Expertise
-    </h2>
-    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <div>
+        <div class="eyebrow">
+          <span style="color: var(--color-ink-faint); margin-right: 10px;">02</span>Expertise
+        </div>
+        <h2 class="serif-display mt-4 text-[clamp(40px,5.5vw,72px)]">
+          What I do <em style="font-style: italic; color: var(--color-red);">well</em>.
+        </h2>
+      </div>
+      <p class="text-base leading-[1.6] max-w-[520px]" style="color: var(--color-ink-soft);">
+        Six disciplines I've sharpened over a decade of running production systems, from a single
+        Costa Rican datacenter to multi-region platforms in Europe.
+      </p>
+    </header>
+
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px border"
+      style="background: var(--color-rule); border-color: var(--color-rule);"
+    >
       {
-        skills.map((skill) => (
-          <article class="rounded-2xl p-8 card-surface border border-white/5 shadow-lg h-full">
-            <div class="text-brand-500 mb-4">
-              <Icon name={skill.icon} class="w-12 h-12" />
+        skills.map((s) => (
+          <article
+            class="p-8 md:p-9 flex flex-col gap-4 min-h-[240px] transition-colors"
+            style="background: var(--color-paper-deep);"
+            onmouseover="this.style.background='var(--color-paper-card)'"
+            onmouseout="this.style.background='var(--color-paper-deep)'"
+          >
+            <div
+              class="text-[11px] tracking-[0.12em]"
+              style="font-family: var(--font-mono); color: var(--color-ink-faint);"
+            >
+              {s.idx}
             </div>
-            <h3 class="text-xl font-semibold text-brand-500 mb-3">
-              {skill.title}
+            <h3
+              class="text-[30px] leading-[1.1] tracking-tight"
+              style="font-family: var(--font-serif); font-weight: 400; color: var(--color-ink);"
+            >
+              {s.title}{" "}
+              <em style="font-style: italic; color: var(--color-red);">{s.titleEm}</em>
             </h3>
-            <p class="text-ink-400 leading-relaxed">{skill.description}</p>
+            <div class="flex flex-wrap gap-1.5 mt-2">
+              {s.stack.map((t) => (
+                <span
+                  class="text-[10.5px] px-2.5 py-1 rounded-[3px] tracking-[0.04em]"
+                  style="font-family: var(--font-mono); background: color-mix(in oklch, var(--color-ink) 7%, transparent); color: var(--color-ink);"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+            <p
+              class="text-[14px] leading-[1.55] mt-auto"
+              style="color: var(--color-ink-soft);"
+            >
+              {s.description}
+            </p>
           </article>
         ))
       }

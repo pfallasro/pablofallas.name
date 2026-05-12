@@ -1,81 +1,138 @@
 ---
 const jobs = [
   {
+    period: "2025 – Now",
+    current: true,
+    role: "Infrastructure Engineering",
+    roleEm: "Manager",
     company: "Zenjob",
-    role: "Infrastructure Engineering Manager",
-    period: "Feb 2025 – Present",
-    location: "Germany",
+    location: "Berlin, Germany",
     description:
-      "Leading the Platform & Infrastructure team, focused on operational excellence and improving the developer experience across the company. We design, build, and maintain infrastructure, tooling, and processes that enable engineering teams to deliver software reliably, securely, and efficiently.",
+      "Leading the Platform & Infrastructure team, focused on operational excellence and improving the developer experience across the company. We design, build, and maintain the infrastructure, tooling and processes that let engineering teams deliver reliably and securely.",
   },
   {
+    period: "2022 – 2025",
+    role: "Senior",
+    roleEm: "DevOps Engineer",
     company: "Zenjob",
-    role: "Senior DevOps Engineer",
-    period: "Jul 2022 – Feb 2025",
-    location: "Germany",
+    location: "Berlin, Germany",
     description:
-      "Designed, implemented, and maintained infrastructure, CI/CD pipelines, and developer tooling to support operational excellence and streamline the development lifecycle. Collaborated with engineers across the organization to improve reliability, scalability, and security.",
+      "Designed, implemented and maintained infrastructure, CI/CD pipelines and developer tooling. Collaborated with engineers across the organization to improve reliability, scalability and security at every layer of the stack.",
   },
   {
+    period: "2021 – 2022",
+    role: "Site Reliability",
+    roleEm: "Engineer",
     company: "TradeStation",
-    role: "Site Reliability Engineer",
-    period: "Oct 2021 – Jun 2022",
     location: "Costa Rica",
     description:
-      "Managed and configured AWS environments to ensure scalability, efficiency, and security. Maintained Kubernetes clusters, implemented observability with Datadog and Grafana, and developed Infrastructure as Code with Terraform and Ansible.",
+      "Managed AWS environments for scale, efficiency and security. Operated Kubernetes clusters, built observability with Datadog and Grafana, and developed infrastructure-as-code with Terraform and Ansible.",
   },
   {
+    period: "2019 – 2021",
+    role: "DevOps",
+    roleEm: "Engineer",
     company: "SecureLink",
-    role: "DevOps Engineer",
-    period: "Sep 2019 – Sep 2021",
     location: "Costa Rica",
     description:
-      "Maintained internal development and testing environments. Developed RPM packages for automation, used Ansible and Ansible Tower for configuration management, and managed GitLab pipelines and Docker images for CI/CD workflows.",
+      "Maintained internal development and testing environments. Developed RPM packages for automation, used Ansible / Ansible Tower for configuration management, and managed GitLab pipelines and Docker images for CI/CD workflows.",
   },
   {
+    period: "2018 – 2019",
+    role: "DevOps",
+    roleEm: "Engineer",
     company: "Equifax",
-    role: "DevOps Engineer",
-    period: "Jul 2018 – Sep 2019",
     location: "Costa Rica",
     description:
-      "Managed automated deployments and maintenance of internal applications including Bamboo, Bitbucket, Confluence, and Jira. Assisted teams in CI/CD configuration and best practices while contributing to company-wide security standards.",
+      "Managed automated deployments and maintenance of internal applications including Bamboo, Bitbucket, Confluence and Jira. Assisted teams with CI/CD configuration and best practices and contributed to company-wide security standards.",
   },
   {
+    period: "2016 – 2018",
+    role: "Systems",
+    roleEm: "Engineer",
     company: "Equifax",
-    role: "Systems Engineer",
-    period: "May 2016 – Jun 2018",
     location: "Costa Rica",
     description:
-      "Designed and implemented technical requirements to integrate external-facing applications with SecureAuth IdP using SAML, OAuth/OpenID Connect, and WS-FED. Maintained a mission-critical, multi-region authentication platform across five regions.",
+      "Designed and implemented integrations between external-facing applications and SecureAuth IdP using SAML, OAuth/OpenID Connect and WS-FED. Maintained a mission-critical, multi-region authentication platform across five regions.",
   },
 ];
 ---
 
-<section id="experience" class="max-w-7xl mx-auto px-6 py-24">
-  <h2
-    class="text-4xl md:text-5xl font-display font-bold text-center gradient-text mb-12"
-  >
-    Professional Experience
-  </h2>
-  <div class="grid gap-6">
-    {
-      jobs.map((job) => (
-        <article class="rounded-2xl p-8 card-surface border border-white/5 shadow-lg">
-          <header class="flex flex-wrap justify-between gap-4 mb-4">
-            <div>
-              <h3 class="text-xl font-semibold text-brand-500 mb-1">
-                {job.role}
+<section id="experience" class="py-28 md:py-32">
+  <div class="max-w-[1240px] mx-auto px-6 md:px-8">
+    <header
+      class="grid md:grid-cols-[1fr_2fr] gap-10 md:gap-16 items-baseline mb-14 pb-6 border-b"
+      style="border-color: var(--color-rule);"
+    >
+      <div>
+        <div class="eyebrow">
+          <span style="color: var(--color-ink-faint); margin-right: 10px;">03</span>Experience
+        </div>
+        <h2 class="serif-display mt-4 text-[clamp(40px,5.5vw,72px)]">
+          A decade <em style="font-style: italic; color: var(--color-red);">shipping</em>.
+        </h2>
+      </div>
+      <p class="text-base leading-[1.6] max-w-[520px]" style="color: var(--color-ink-soft);">
+        Ten years across Costa Rica and Germany, moving from engineer to senior engineer to
+        manager, always on the platform side of the line.
+      </p>
+    </header>
+
+    <div class="relative">
+      <div
+        class="hidden md:block absolute top-0 bottom-0 w-px"
+        style="left: 160px; background: var(--color-rule);"
+        aria-hidden="true"
+      ></div>
+
+      {
+        jobs.map((job) => (
+          <article
+            class="relative grid md:grid-cols-[160px_1fr] gap-3 md:gap-12 py-8 border-b"
+            style="border-color: var(--color-rule);"
+          >
+            <div
+              class="text-[12px] uppercase tracking-[0.08em] leading-[1.6]"
+              style="font-family: var(--font-mono); color: var(--color-ink-soft);"
+            >
+              {job.current ? (
+                <>
+                  2025 – <span style="color: var(--color-red); font-weight: 500;">Now</span>
+                </>
+              ) : (
+                job.period
+              )}
+            </div>
+            <span
+              class="hidden md:block absolute w-[9px] h-[9px] rounded-full"
+              style={`left: 156px; top: 42px; background: ${job.current ? "var(--color-red)" : "var(--color-paper)"}; border: 1px solid ${job.current ? "var(--color-red)" : "var(--color-ink)"}; box-shadow: ${job.current ? "0 0 0 4px color-mix(in oklch, var(--color-red) 20%, transparent)" : "none"};`}
+              aria-hidden="true"
+            />
+            <div class="md:pl-9">
+              <h3
+                class="text-[30px] leading-[1.15] tracking-tight mb-2.5"
+                style="font-family: var(--font-serif); font-weight: 400; color: var(--color-ink);"
+              >
+                {job.role}{" "}
+                <em style="font-style: italic; color: var(--color-red);">{job.roleEm}</em>
               </h3>
-              <p class="text-lg text-ink-50">{job.company}</p>
+              <div
+                class="mb-3.5 text-[12px] uppercase tracking-[0.1em]"
+                style="font-family: var(--font-mono); color: var(--color-ink-soft);"
+              >
+                {job.company}
+                <span style="color: var(--color-ink-faint);">{" · "}{job.location}</span>
+              </div>
+              <p
+                class="text-[15.5px] leading-[1.65] max-w-[720px]"
+                style="color: var(--color-ink-soft);"
+              >
+                {job.description}
+              </p>
             </div>
-            <div class="text-sm text-ink-400 sm:text-right">
-              <p>{job.period}</p>
-              <p>{job.location}</p>
-            </div>
-          </header>
-          <p class="text-ink-400 leading-relaxed">{job.description}</p>
-        </article>
-      ))
-    }
+          </article>
+        ))
+      }
+    </div>
   </div>
 </section>
