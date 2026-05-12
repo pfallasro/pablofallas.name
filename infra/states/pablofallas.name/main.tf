@@ -112,7 +112,8 @@ data "aws_cloudfront_cache_policy" "caching_optimized" {
 # CLOUDFRONT RESPONSE HEADERS POLICY - security headers
 ##############################################################################
 resource "aws_cloudfront_response_headers_policy" "security_headers" {
-  name = "${var.service_name}-security-headers"
+  # CloudFront policy names only allow alphanumerics, dashes, underscores.
+  name = "${replace(var.service_name, ".", "-")}-security-headers"
 
   security_headers_config {
     content_type_options {
