@@ -1,116 +1,78 @@
 # Pablo Fallas - Personal Portfolio
 
-A modern, responsive portfolio website showcasing my experience as a Senior DevOps Engineer. This project demonstrates full-stack capabilities, cloud infrastructure automation, and modern web development practices.
+Personal portfolio site at [pablofallas.name](https://pablofallas.name).
+Static, served from S3 + CloudFront, fully provisioned via Terraform.
 
-## 🔗 Live Site
-
-[pablofallas.name](https://pablofallas.name)
-
-## 📋 Project Overview
-
-This portfolio serves as both a professional showcase and a technical demonstration of DevOps and cloud engineering skills. The entire stack—from frontend development to cloud infrastructure deployment—is managed through Infrastructure as Code (IaC) and automated CI/CD pipelines.
-
-## 🛠️ Technology Stack
+## Stack
 
 ### Frontend
-- **React 19** - Latest React with modern hooks and features
-- **TypeScript** - Type-safe development
-- **Vite** - Next-generation build tool for fast development and optimized production builds
-- **Material-UI (MUI)** - Component library for consistent, professional UI
-- **Emotion** - CSS-in-JS styling solution
-- **Framer Motion** - Smooth animations and transitions
-- **Tailwind CSS** - Utility-first CSS framework
-- **PWA (Progressive Web App)** - Offline support and app-like experience using vite-plugin-pwa
+- **Astro 6** — static site generator (zero JS by default)
+- **Tailwind CSS 4** — CSS-first config via `@theme` in `src/styles/global.css`,
+  wired through `@tailwindcss/vite` (no `tailwind.config.ts`, no `@astrojs/tailwind`)
+- **TypeScript 6**
+- **astro-icon + @iconify-json/mdi** — SVG icons, only ships what is used
+- **@vite-pwa/astro** — service worker + web app manifest (Workbox under the hood)
+- **@astrojs/sitemap** — auto-generated `sitemap-index.xml`
 
-### Infrastructure & DevOps
-- **AWS S3** - Static website hosting
-- **AWS CloudFront** - CDN for global content delivery
-- **Terraform** - Infrastructure as Code for AWS resources
-- **GitHub Actions** - CI/CD automation
-- **AWS OIDC** - Secure authentication without long-lived credentials
+### Infrastructure
+- **AWS S3** — origin for static assets (private bucket, no website endpoint)
+- **AWS CloudFront** — CDN with Origin Access Control to the bucket
+  - Response headers policy for security headers (CSP, HSTS, X-Frame-Options, etc.)
+  - `/404.html` returned with a real `404` status
+- **ACM** — DNS-validated TLS certificate
+- **Route53** — apex and `www` aliases to the distribution
+- **Terraform** — single state under `infra/states/pablofallas.name/`
+- **GitHub Actions** — OIDC-based deploy (no long-lived AWS keys)
 
-## 🏗️ Architecture
-
-The site follows a modern JAMstack architecture:
-1. Static React application built with Vite
-2. Hosted on S3 with CloudFront distribution
-3. Infrastructure provisioned via Terraform
-4. Automated deployments through GitHub Actions
-
-### Build Optimizations
-- Code splitting for vendor libraries (React, animations, icons)
-- Terser minification with console removal
-- Optimized asset naming for CloudFront caching
-- Separate chunks for images and fonts
-- Service Worker for offline functionality
-
-## 🚀 CI/CD Pipeline
-
-The GitHub Actions workflow (`/.github/workflows/main.yml`) automates:
-1. **Build** - Compiles TypeScript and bundles assets with Vite
-2. **Infrastructure** - Validates and applies Terraform configurations
-3. **Deploy** - Syncs build artifacts to S3
-4. **Invalidation** - Managed by Terraform for CloudFront
-
-The pipeline uses AWS OIDC for secure, temporary credentials without storing access keys.
-
-## 💻 Development
-
-### Prerequisites
-- Node.js >= 20.0.0
-- npm
-
-### Available Scripts
+## Development
 
 ```bash
-# Start development server (http://localhost:3000)
-npm run dev
+nvm use                    # Node 20 (see .nvmrc)
+npm ci
 
-# Build for production (outputs to dist/)
-npm run build
-
-# Preview production build
-npm run preview
-
-# Type checking
-npm run type-check
+npm run dev                # local dev server on http://localhost:4321
+npm run build              # static build to ./dist
+npm run preview            # serve ./dist locally
+npm run type-check         # astro check
 ```
 
-## 📁 Project Structure
+## Project layout
 
 ```
+.
+├── astro.config.mjs       # Astro + Tailwind + sitemap + PWA + icons
 ├── src/
-│   ├── components/     # React components (Hero, Experience, Skills, etc.)
-│   ├── pages/          # Page-level components
-│   ├── App.tsx         # Main application component
-│   └── index.tsx       # Application entry point
-├── infra/              # Terraform infrastructure code
-├── public/             # Static assets
-├── .github/workflows/  # CI/CD pipeline definitions
-└── vite.config.ts      # Build configuration
+│   ├── pages/
+│   │   ├── index.astro    # single-page portfolio (Hero + sections)
+│   │   └── 404.astro
+│   ├── layouts/Base.astro # HTML shell: meta, OG, fonts, PWA wiring
+│   ├── components/        # Nav, Hero, About, Expertise, Experience,
+│   │                      # EducationCerts, Contact, Footer
+│   └── styles/global.css  # Tailwind directives + a few utilities
+├── public/                # files served as-is (favicon, profile, CV PDF, robots)
+└── infra/states/pablofallas.name/   # Terraform: S3 + CloudFront + ACM + Route53
 ```
 
-## 🔒 Infrastructure as Code
+## Deployment
 
-All AWS resources are managed through Terraform in the `/infra` directory:
-- S3 bucket configuration
-- CloudFront distribution
-- DNS and SSL/TLS certificates
-- IAM roles and policies
+The workflow at `.github/workflows/main.yml`:
 
-## 📝 Key Features
+1. Checks out and installs deps.
+2. Assumes the OIDC role configured via `AWS_ROLE_ARN` secret.
+3. `npm run build` produces `./dist`.
+4. `terraform plan` (on PR) or `terraform apply` (on push to `main`).
+5. `aws s3 sync dist/ s3://pablofallas.name --delete` uploads the build.
+6. CloudFront cache invalidation (`/*`) so changes show up immediately.
 
-- **Responsive Design** - Mobile-first approach with smooth animations
-- **Performance Optimized** - Lazy loading, code splitting, and CDN delivery
-- **Progressive Web App** - Installable with offline support
-- **Automated Deployments** - Push to main branch triggers full deployment
-- **Type Safety** - TypeScript throughout the codebase
-- **Modern DevOps** - Infrastructure as Code with zero-downtime deployments
+## Notes
 
-## 📫 Contact
-
-This portfolio includes a contact section with links to professional profiles and communication channels.
-
----
-
-**Note for Interviewers**: This project showcases end-to-end ownership of a modern web application, from React development to cloud infrastructure automation. The tech stack and deployment architecture reflect current industry best practices for scalable, maintainable web applications.
+- Security headers (CSP, HSTS, X-Frame-Options, Permissions-Policy, etc.) are
+  applied by the CloudFront response headers policy in `infra/.../main.tf`,
+  not by a `public/_headers` file — CloudFront does not read that convention.
+- The site is intentionally a single page with anchor-linked sections. The
+  nav scrolls smoothly between Hero, About, Expertise, Experience, Education
+  and Contact.
+- `.npmrc` sets `legacy-peer-deps=true` because `@vite-pwa/astro@1.2.0` still
+  declares its peer as `astro: ^1–^5`. The underlying `vite-plugin-pwa`
+  supports Astro 6 / Vite 7 fine — this is just an outdated peer declaration
+  in the wrapper. Remove `.npmrc` once a release with updated peers ships.

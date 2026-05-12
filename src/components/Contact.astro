@@ -1,0 +1,41 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<section id="contact" class="max-w-3xl mx-auto px-6 py-24 text-center">
+  <h2
+    class="text-4xl md:text-5xl font-display font-bold gradient-text mb-6"
+  >
+    Let's Connect
+  </h2>
+  <p class="text-lg text-ink-400 mb-10">
+    Interested in working together or just want to say hi? Feel free to reach
+    out!
+  </p>
+  <div class="flex flex-wrap gap-4 justify-center">
+    <a
+      href="mailto:pfallasro@gmail.com"
+      class="inline-flex items-center gap-2 px-7 py-3 rounded-full font-semibold text-ink-900 bg-brand-gradient shadow-[0_8px_32px_rgba(16,185,129,0.3)] hover:scale-105 transition-transform"
+    >
+      <Icon name="mdi:email" class="w-5 h-5" />
+      Send an Email
+    </a>
+    <a
+      href="https://linkedin.com/in/pfallasro"
+      target="_blank"
+      rel="noopener"
+      class="inline-flex items-center gap-2 px-7 py-3 rounded-full font-semibold border border-brand-500 text-brand-400 hover:bg-brand-500/10 transition-colors"
+    >
+      <Icon name="mdi:linkedin" class="w-5 h-5" />
+      Connect on LinkedIn
+    </a>
+    <a
+      href="/CV_Pablo_Fallas.pdf"
+      download
+      class="inline-flex items-center gap-2 px-7 py-3 rounded-full font-semibold border border-brand-500 text-brand-400 hover:bg-brand-500/10 transition-colors"
+    >
+      <Icon name="mdi:download" class="w-5 h-5" />
+      Download CV
+    </a>
+  </div>
+</section>

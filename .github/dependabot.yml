@@ -1,0 +1,38 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    groups:
+      astro:
+        patterns:
+          - "astro"
+          - "@astrojs/*"
+          - "astro-icon"
+          - "@iconify-json/*"
+      tailwind:
+        patterns:
+          - "tailwindcss"
+          - "@tailwindcss/*"
+      pwa:
+        patterns:
+          - "@vite-pwa/*"
+          - "vite-plugin-pwa"
+          - "workbox-*"
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 3
+
+  - package-ecosystem: terraform
+    directory: "/infra/states/pablofallas.name"
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 3
