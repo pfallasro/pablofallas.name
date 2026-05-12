@@ -1,104 +1,120 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------
+   Costa Rica · Night edition
+   Deep CR navy paper, cream ink, red signal accent.
+--------------------------------------------------------- */
 @theme {
-  --color-brand-50: #ecfdf5;
-  --color-brand-100: #d1fae5;
-  --color-brand-400: #34d399;
-  --color-brand-500: #10b981;
-  --color-brand-600: #059669;
+  /* Surfaces */
+  --color-paper:      #07173A;   /* page background */
+  --color-paper-deep: #0A1F4A;   /* tonal section background */
+  --color-paper-card: #0E2356;   /* raised cards */
 
-  --color-accent-400: #22d3ee;
-  --color-accent-500: #06b6d4;
-  --color-accent-600: #0891b2;
+  /* Ink (text) */
+  --color-ink:        #F2EAD9;   /* primary text, cream */
+  --color-ink-soft:   #C0BFC4;
+  --color-ink-faint:  #6E7B97;
 
-  --color-ink-50: #f1f5f9;
-  --color-ink-400: #94a3b8;
-  --color-ink-800: #1e293b;
-  --color-ink-900: #0f172a;
+  /* Signal */
+  --color-red:        #FF3E5E;
+  --color-red-deep:   #C8102E;
 
-  --font-sans: "Inter", system-ui, sans-serif;
-  --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+  /* Costa Rican flag stripe — Pantone 286 blue, pure white, flag red */
+  --color-flag-blue:  #0033A0;
+  --color-flag-white: #FFFFFF;
+  --color-flag-red:   #DA291C;
 
+  /* Lines */
+  --color-rule:       #1A2B57;
+
+  /* Type */
+  --font-sans:    "Inter", system-ui, sans-serif;
+  --font-serif:   "Instrument Serif", "Times New Roman", serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Instrument Serif", "Times New Roman", serif;
+
+  /* Motion */
   --animate-fade-in-slow: fadeIn 1.2s ease-out forwards;
-  --animate-bounce: bounce 2s infinite;
-
-  --background-image-brand-gradient: linear-gradient(
-    90deg,
-    #10b981 0%,
-    #06b6d4 100%
-  );
+  --animate-pulse-dot: pulseDot 2.4s ease-out infinite;
 
   @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(12px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
-
-  @keyframes bounce {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
+  @keyframes pulseDot {
+    0%   { box-shadow: 0 0 0 0 color-mix(in oklch, var(--color-red) 35%, transparent); }
+    70%  { box-shadow: 0 0 0 14px color-mix(in oklch, var(--color-red) 0%,  transparent); }
+    100% { box-shadow: 0 0 0 0  transparent; }
   }
 }
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
+  html { scroll-behavior: smooth; }
 
   body {
-    @apply bg-ink-900 text-ink-50 font-sans antialiased;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
   }
 
-  section[id] {
-    scroll-margin-top: 5rem;
-  }
+  section[id] { scroll-margin-top: 6rem; }
 
   .skip-link {
-    @apply absolute left-2 top-2 z-[100] px-4 py-2 rounded-full bg-brand-500 text-ink-900 font-semibold;
+    position: absolute;
+    left: 0.5rem; top: 0.5rem;
+    z-index: 100;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    background: var(--color-red);
+    color: var(--color-paper);
+    font-weight: 600;
     transform: translateY(-200%);
     transition: transform 0.2s ease-out;
   }
-  .skip-link:focus {
-    transform: translateY(0);
-  }
+  .skip-link:focus { transform: translateY(0); }
 
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #1e293b;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: rgba(16, 185, 129, 0.5);
-    border-radius: 9999px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #10b981;
-  }
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track  { background: var(--color-paper-deep); }
+  ::-webkit-scrollbar-thumb  { background: var(--color-rule); border-radius: 9999px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-red); }
 }
 
-@utility gradient-text {
-  @apply bg-brand-gradient bg-clip-text text-transparent;
+/* ---------- Reusable bits ---------- */
+@utility eyebrow {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--color-red);
+  font-weight: 500;
 }
 
-@utility card-surface {
-  background-image: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-  transition:
-    transform 0.3s ease-in-out,
-    box-shadow 0.3s ease-in-out;
+@utility serif-display {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+}
 
-  &:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 40px rgba(16, 185, 129, 0.2);
-  }
+/* Flag stripe pinned to the very top edge */
+.flag-stripe {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: 6px; z-index: 60;
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr 1fr 1fr;
+  pointer-events: none;
+}
+/* Costa Rican flag: blue, white, red, white, blue (1:1:2:1:1) */
+.flag-stripe > div:nth-child(1),
+.flag-stripe > div:nth-child(5) { background: var(--color-flag-blue); }
+.flag-stripe > div:nth-child(2),
+.flag-stripe > div:nth-child(4) { background: var(--color-flag-white); }
+.flag-stripe > div:nth-child(3) { background: var(--color-flag-red); }
+
+/* Pulse dot for "available" lede */
+.pulse-dot {
+  width: 8px; height: 8px; border-radius: 9999px;
+  background: var(--color-red);
+  animation: pulseDot 2.4s ease-out infinite;
 }

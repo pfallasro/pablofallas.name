@@ -1,41 +1,70 @@
 ---
 import { Icon } from "astro-icon/components";
+
+const channels = [
+  { href: "mailto:pfallasro@gmail.com",         label: "pfallasro@gmail.com",      icon: "mdi:email-outline" },
+  { href: "https://linkedin.com/in/pfallasro",  label: "linkedin.com/in/pfallasro", icon: "mdi:linkedin", ext: true },
+  { href: "https://github.com/pfallasro",       label: "github.com/pfallasro",     icon: "mdi:github",   ext: true },
+  { href: "/CV_Pablo_Fallas.pdf",               label: "Download CV (PDF)",        icon: "mdi:file-document-outline" },
+];
 ---
 
-<section id="contact" class="max-w-3xl mx-auto px-6 py-24 text-center">
-  <h2
-    class="text-4xl md:text-5xl font-display font-bold gradient-text mb-6"
-  >
-    Let's Connect
-  </h2>
-  <p class="text-lg text-ink-400 mb-10">
-    Interested in working together or just want to say hi? Feel free to reach
-    out!
-  </p>
-  <div class="flex flex-wrap gap-4 justify-center">
-    <a
-      href="mailto:pfallasro@gmail.com"
-      class="inline-flex items-center gap-2 px-7 py-3 rounded-full font-semibold text-ink-900 bg-brand-gradient shadow-[0_8px_32px_rgba(16,185,129,0.3)] hover:scale-105 transition-transform"
-    >
-      <Icon name="mdi:email" class="w-5 h-5" />
-      Send an Email
-    </a>
-    <a
-      href="https://linkedin.com/in/pfallasro"
-      target="_blank"
-      rel="noopener"
-      class="inline-flex items-center gap-2 px-7 py-3 rounded-full font-semibold border border-brand-500 text-brand-400 hover:bg-brand-500/10 transition-colors"
-    >
-      <Icon name="mdi:linkedin" class="w-5 h-5" />
-      Connect on LinkedIn
-    </a>
-    <a
-      href="/CV_Pablo_Fallas.pdf"
-      download
-      class="inline-flex items-center gap-2 px-7 py-3 rounded-full font-semibold border border-brand-500 text-brand-400 hover:bg-brand-500/10 transition-colors"
-    >
-      <Icon name="mdi:download" class="w-5 h-5" />
-      Download CV
-    </a>
+<section id="contact" class="py-32 md:py-36">
+  <div class="max-w-[1240px] mx-auto px-6 md:px-8">
+    <div class="mb-8">
+      <div class="eyebrow">
+        <span style="color: var(--color-ink-faint); margin-right: 10px;">05</span>Contact
+      </div>
+    </div>
+
+    <div class="grid gap-10 md:grid-cols-2 md:gap-16 items-end">
+      <h2 class="serif-display text-[clamp(56px,8vw,112px)]">
+        Let's <em style="font-style: italic; color: var(--color-red);">build</em><br />
+        something{" "}
+        <span
+          style="background-image: linear-gradient(var(--color-red), var(--color-red)); background-position: 0 92%; background-size: 100% 4px; background-repeat: no-repeat; padding-bottom: 4px;"
+        >
+          solid
+        </span>.
+      </h2>
+
+      <div class="pb-3">
+        <p
+          class="text-[17px] leading-[1.6] mb-9 max-w-[440px]"
+          style="color: var(--color-ink-soft);"
+        >
+          Interested in working together, comparing notes on platform engineering, or just want to
+          say hi? Pick a channel.
+        </p>
+        <div
+          class="flex flex-col border-t"
+          style="border-color: var(--color-rule);"
+        >
+          {
+            channels.map((c) => (
+              <a
+                href={c.href}
+                target={c.ext ? "_blank" : undefined}
+                rel={c.ext ? "noopener" : undefined}
+                class="flex items-center justify-between py-[22px] border-b text-[16px] transition-all"
+                style="border-color: var(--color-rule); color: var(--color-ink);"
+                onmouseover="this.style.color='var(--color-red)'; this.style.paddingLeft='12px'; this.querySelector('.ico').style.color='var(--color-red)'; this.querySelector('.arr').style.transform='translateX(4px) rotate(-45deg)';"
+                onmouseout="this.style.color='var(--color-ink)'; this.style.paddingLeft='0'; this.querySelector('.ico').style.color='var(--color-ink-soft)'; this.querySelector('.arr').style.transform='none';"
+              >
+                <span class="flex items-center gap-4">
+                  <Icon
+                    name={c.icon}
+                    class="ico w-[22px] h-[22px] transition-colors"
+                    style="color: var(--color-ink-soft);"
+                  />
+                  {c.label}
+                </span>
+                <span class="arr transition-transform">→</span>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
   </div>
 </section>

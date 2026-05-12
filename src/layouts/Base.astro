@@ -8,11 +8,53 @@ interface Props {
 }
 
 const {
-  title = "Pablo Fallas Rodríguez - DevOps / Site Reliability Engineer",
-  description = "Pablo Fallas Rodríguez - Infrastructure Engineering Manager specializing in DevOps, Site Reliability Engineering, and cloud infrastructure.",
+  title = "Pablo Fallas Rodríguez - Infrastructure Engineering Manager",
+  description = "Infrastructure Engineering Manager building reliable, cost-efficient cloud platforms. DevOps, SRE and FinOps practitioner based in Berlin, originally from Costa Rica.",
 } = Astro.props;
 
+const siteName = "Pablo Fallas Rodríguez";
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Pablo Fallas Rodríguez",
+  givenName: "Pablo",
+  familyName: "Fallas Rodríguez",
+  jobTitle: "Infrastructure Engineering Manager",
+  description,
+  url: Astro.site?.toString(),
+  image: new URL("/pablo-profile.jpg", Astro.site).toString(),
+  email: "mailto:pfallasro@gmail.com",
+  knowsAbout: [
+    "Cloud infrastructure",
+    "AWS",
+    "Kubernetes",
+    "Terraform",
+    "DevOps",
+    "Site Reliability Engineering",
+    "FinOps",
+    "Cloud cost optimization",
+    "Observability",
+    "CI/CD",
+  ],
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Berlin",
+    addressCountry: "DE",
+  },
+  nationality: { "@type": "Country", name: "Costa Rica" },
+  worksFor: { "@type": "Organization", name: "Zenjob" },
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "Cenfotec University",
+    address: { "@type": "PostalAddress", addressCountry: "CR" },
+  },
+  sameAs: [
+    "https://github.com/pfallasro",
+    "https://linkedin.com/in/pfallasro",
+  ],
+};
 ---
 
 <!doctype html>
@@ -22,13 +64,22 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="canonical" href={canonical} />
 
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#0f172a" />
+    <meta name="author" content="Pablo Fallas Rodríguez" />
+    <meta name="theme-color" content="#07173A" />
+    <meta name="color-scheme" content="dark" />
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Pablo Fallas" />
 
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
@@ -36,23 +87,30 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:alt" content="Pablo Fallas Rodríguez — Infrastructure Engineering Manager" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content="/og-image.png" />
+    <meta name="twitter:image:alt" content="Pablo Fallas Rodríguez — Infrastructure Engineering Manager" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
+
+    <script type="application/ld+json" set:html={JSON.stringify(personJsonLd)} is:inline />
 
     {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
   </head>
   <body>
     <a href="#main" class="skip-link">Skip to main content</a>
+    <div class="flag-stripe" aria-hidden="true">
+      <div></div><div></div><div></div><div></div><div></div>
+    </div>
     <slot />
     <script>
       import { registerSW } from "virtual:pwa-register";
