@@ -1,0 +1,67 @@
+---
+import { Icon } from "astro-icon/components";
+
+const skills = [
+  {
+    title: "Cloud & Infrastructure",
+    description:
+      "AWS (Developer Associate), Terraform, Kubernetes - Building scalable cloud infrastructure",
+    icon: "mdi:cloud",
+  },
+  {
+    title: "Automation & CI/CD",
+    description:
+      "GitLab CI/CD, Ansible / Ansible Tower, Docker, Bash - Streamlining deployment workflows",
+    icon: "mdi:chart-line-variant",
+  },
+  {
+    title: "Programming & Scripting",
+    description:
+      "Python, Golang - Building tools and automating complex processes",
+    icon: "mdi:code-tags",
+  },
+  {
+    title: "Monitoring & Observability",
+    description:
+      "Grafana, Prometheus, Loki, Datadog, Alertmanager - Ensuring system health and performance",
+    icon: "mdi:speedometer",
+  },
+  {
+    title: "Container Orchestration",
+    description:
+      "Kubernetes, Docker - Managing containerized applications at scale",
+    icon: "mdi:graph-outline",
+  },
+  {
+    title: "Systems Administration",
+    description:
+      "Linux Administration, Windows Administration - Managing diverse system environments",
+    icon: "mdi:shield-check",
+  },
+];
+---
+
+<section id="expertise" class="py-24" style="background: rgba(16,185,129,0.03);">
+  <div class="max-w-7xl mx-auto px-6">
+    <h2
+      class="text-4xl md:text-5xl font-display font-bold text-center gradient-text mb-12"
+    >
+      Expertise
+    </h2>
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        skills.map((skill) => (
+          <article class="rounded-2xl p-8 card-surface border border-white/5 shadow-lg h-full">
+            <div class="text-brand-500 mb-4">
+              <Icon name={skill.icon} class="w-12 h-12" />
+            </div>
+            <h3 class="text-xl font-semibold text-brand-500 mb-3">
+              {skill.title}
+            </h3>
+            <p class="text-ink-400 leading-relaxed">{skill.description}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
