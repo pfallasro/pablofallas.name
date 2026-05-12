@@ -19,18 +19,22 @@ jobs:
     steps:
       # Step 1: Checkout Repository
       - name: Checkout Repository
-        uses: actions/checkout@v4
-    
+        uses: actions/checkout@v6
+
       # Step 2: Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
-   
+
       # Step 3: Configure AWS credentials with OIDC
+      # Dependabot PRs cannot access repo secrets — only run AWS auth for
+      # everyone else. The push branch deploys; non-Dependabot PRs still get
+      # plan + state-backed terraform validate.
       - name: Configure AWS credentials with OIDC
-        uses: aws-actions/configure-aws-credentials@v4
+        if: github.actor != 'dependabot[bot]'
+        uses: aws-actions/configure-aws-credentials@v6
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
@@ -49,28 +53,30 @@ jobs:
 
       # Step 7: Set up Terraform
       - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v3
+        uses: hashicorp/setup-terraform@v4
         with:
           terraform_version: ~1.9
 
-      # Step 8: Terraform Format Check
+      # Step 8: Terraform Format Check (no AWS needed)
       - name: Terraform Format Check
         working-directory: infra/states/pablofallas.name
         run: terraform fmt -check -diff
 
-      # Step 9: Terraform Init
+      # Step 9: Terraform Init (needs S3 backend access — skip for Dependabot)
       - name: Terraform Init
+        if: github.actor != 'dependabot[bot]'
         working-directory: infra/states/pablofallas.name
         run: terraform init
 
-      # Step 10: Terraform Validate
+      # Step 10: Terraform Validate (depends on Init)
       - name: Terraform Validate
+        if: github.actor != 'dependabot[bot]'
         working-directory: infra/states/pablofallas.name
         run: terraform validate
 
-      # Step 11: Terraform Plan (Only on Pull Requests)
+      # Step 11: Terraform Plan (Only on Pull Requests, not Dependabot)
       - name: Terraform Plan
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && github.actor != 'dependabot[bot]'
         working-directory: infra/states/pablofallas.name
         run: terraform plan
 
