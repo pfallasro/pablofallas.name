@@ -3,6 +3,37 @@
 Personal portfolio site at [pablofallas.name](https://pablofallas.name).
 Static, served from S3 + CloudFront, fully provisioned via Terraform.
 
+## Status: not currently deployed
+
+As of May 2026 the live site is **intentionally offline**. The AWS
+infrastructure has been torn down via `terraform destroy` and the GitHub
+Actions deploy workflow is commented out so pushes to `main` don't recreate
+it.
+
+The reason is the German Impressumspflicht (§5 DDG): any career-style
+portfolio operated from Germany legally requires a verifiable street
+address on a publicly-reachable Impressum page. Publishing my home address
+on a publicly indexed page is a privacy trade-off I'd rather not make
+right now, and at the moment I'm not actively job-hunting so the
+cost / benefit of keeping the site live doesn't work out.
+
+The codebase, terraform stack, design system and content here are
+preserved as-is so the site can be re-deployed at any time without
+re-engineering anything. To bring it back online:
+
+1. Provision a valid Impressum address (a P.O. Box, `c/o` arrangement, or
+   a virtual mailbox such as Hauspost works) and update the placeholder
+   in [`src/pages/impressum.astro`](src/pages/impressum.astro) and
+   [`src/pages/datenschutz.astro`](src/pages/datenschutz.astro).
+2. Restore the deploy workflow by uncommenting the block at the bottom
+   of [`.github/workflows/main.yml`](.github/workflows/main.yml).
+3. Push to `main`. The first push will recreate the S3 bucket, CloudFront
+   distribution, ACM cert and Route53 records via `terraform apply`, then
+   sync the build artefacts.
+
+The domain registration itself (in the Route53 hosted zone) is unaffected
+by the destroy and remains owned.
+
 ## Stack
 
 ### Frontend
