@@ -11,7 +11,8 @@
     "astro": "astro",
     "type-check": "astro check",
     "og-image": "node scripts/generate-og-image.mjs",
-    "icons": "node scripts/generate-icons.mjs"
+    "icons": "node scripts/generate-icons.mjs",
+    "fonts": "node scripts/download-fonts.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",

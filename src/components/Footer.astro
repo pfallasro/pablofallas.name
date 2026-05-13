@@ -23,12 +23,31 @@ const year = new Date().getFullYear();
           · Pura vida
         </span>
       </div>
-      <div
-        class="text-[11.5px] uppercase tracking-[0.12em]"
-        style="font-family: var(--font-mono); color: var(--color-ink-faint);"
+      <nav
+        class="text-[11.5px] uppercase tracking-[0.12em] flex flex-wrap items-center gap-4"
+        style="font-family: var(--font-mono);"
+        aria-label="Legal"
       >
-        v2 · costa rica edition
-      </div>
+        <a
+          href="/impressum.html"
+          class="transition-colors"
+          style="color: var(--color-ink-faint);"
+          onmouseover="this.style.color='var(--color-red)'"
+          onmouseout="this.style.color='var(--color-ink-faint)'"
+        >
+          Impressum
+        </a>
+        <span style="color: var(--color-rule);">·</span>
+        <a
+          href="/datenschutz.html"
+          class="transition-colors"
+          style="color: var(--color-ink-faint);"
+          onmouseover="this.style.color='var(--color-red)'"
+          onmouseout="this.style.color='var(--color-ink-faint)'"
+        >
+          Datenschutz
+        </a>
+      </nav>
     </div>
   </div>
 </footer>

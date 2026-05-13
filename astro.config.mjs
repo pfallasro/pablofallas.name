@@ -10,6 +10,9 @@ export default defineConfig({
   output: "static",
   build: {
     assets: "assets",
+    // Emit /impressum.html etc. at the root so they resolve directly on
+    // S3 without needing a CloudFront URL-rewrite function for clean URLs.
+    format: "file",
   },
   integrations: [
     sitemap(),
@@ -55,27 +58,10 @@ export default defineConfig({
         ],
       },
       workbox: {
+        // Fonts are self-hosted, so the woff2 + fonts.css land in the
+        // standard precache via these globs. No third-party runtimeCaching
+        // rules needed.
         globPatterns: ["**/*.{js,css,html,ico,jpg,png,svg,webp,woff2}"],
-        runtimeCaching: [
-          {
-            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
-            handler: "CacheFirst",
-            options: {
-              cacheName: "google-fonts-stylesheets",
-              expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 },
-              cacheableResponse: { statuses: [0, 200] },
-            },
-          },
-          {
-            urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
-            handler: "CacheFirst",
-            options: {
-              cacheName: "google-fonts-webfonts",
-              expiration: { maxEntries: 30, maxAgeSeconds: 60 * 60 * 24 * 365 },
-              cacheableResponse: { statuses: [0, 200] },
-            },
-          },
-        ],
       },
     }),
   ],
